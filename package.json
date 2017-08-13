@@ -13,8 +13,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "hashed": "^4.2.0",
-    "ol": "^4.3.0"
+    "hashed": "*",
+    "ol": "*"
   },
   "devDependencies": {
     "eslint": "^4.4.1",
