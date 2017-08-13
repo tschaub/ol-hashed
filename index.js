@@ -6,7 +6,15 @@ function toPrecision(value, precision) {
   return (Math.round(value * factor) / factor).toString();
 }
 
-function synchronize(map) {
+function synchronize(map, options) {
+  options = options || {};
+  var animate;
+  if ('animate' in options) {
+    animate = options.animate;
+  } else {
+    animate = {duration: 250};
+  }
+
   var view = map.getView();
   var projection = view.getProjection().getCode();
 
@@ -69,6 +77,10 @@ function synchronize(map) {
   };
 
   function hashHandler(state) {
+    if (animate) {
+      view.animate(Object.assign({}, state, animate));
+      return;
+    }
     if ('center' in state) {
       view.setCenter(state.center);
     }

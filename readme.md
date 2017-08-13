@@ -8,7 +8,9 @@ A simple utility for synchronizing your OpenLayers map state with the URL hash.
 
 The `ol-hashed` module is meant to be used together with (and depends on) the [`ol` package](https://www.npmjs.com/package/ol).
 
-## Example
+## Usage
+
+The default export from the `ol-hashed` module is a function that you call with a map.
 
 ```js
 import Map from 'ol/map';
@@ -37,14 +39,22 @@ const map = new Map({
 sync(map);
 ```
 
-## API
+You can pass a second options argument to the sync function to control synchronization behavior.
 
-The default export from the `ol-hashed` module is a function that accepts a map.  Calling the function with a map sets up listeners so that the URL hash is updated when the map view changes and the map view is updated when the URL hash changes (for example, when the user navigates back through history).  The function returns a function that can be called to unregister all listeners.
-
+By default, transitions in the map view are animated when browser history changes.  The `animate` option allows you to control this behavior.
 ```js
-import sync from 'ol-hashed';
-// ... create a map
+// update the view without any animation on history changes
+sync(map, {animate: false});
+```
 
+By default, animations last 250 ms.  You can provide an object for the `animate` option to control `duration` and `easing` of the animation.
+```js
+// slower transitions on history changes
+sync(map, {animate: {duration: 500}});
+```
+
+Calling the `sync` function with a map sets up listeners so that the URL hash is updated when the map view changes and the map view is updated when the URL hash changes (for example, when the user navigates back through history).  The function returns an `unregister` function that can be called to unregister all listeners.
+```js
 // synchronize the map view with the URL hash
 const unregister = sync(map);
 
