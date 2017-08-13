@@ -1,0 +1,29 @@
+{
+  "name": "ol-hashed",
+  "version": "0.0.0",
+  "description": "Maintain your map view's state in the URL hash",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint"
+  },
+  "keywords": [
+    "openlayers",
+    "hash"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "hashed": "^4.2.0",
+    "ol": "^4.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.4.1",
+    "eslint-config-tschaub": "^7.0.0"
+  },
+  "eslintConfig": {
+    "extends": "tschaub",
+    "parserOptions": {
+      "sourceType": "module"
+    }
+  }
+}
