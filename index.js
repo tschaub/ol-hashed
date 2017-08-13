@@ -3,7 +3,7 @@ import proj from 'ol/proj';
 
 function toPrecision(value, precision) {
   var factor = Math.pow(10, precision);
-  return (Math.round(value * factor) / factor).toFixed(precision);
+  return (Math.round(value * factor) / factor).toString();
 }
 
 function synchronize(map) {
@@ -17,7 +17,11 @@ function synchronize(map) {
     rotation = view.getRotation();
   } else {
     var viewport = map.getViewport();
-    zoom = Math.LOG2E * Math.log(viewport.clientWidth / 256);
+    if (viewport) {
+      zoom = Math.LOG2E * Math.log(viewport.clientWidth / 256);
+    } else {
+      zoom = 0;
+    }
     center = [0, 0];
     rotation = 0;
   }
@@ -26,13 +30,23 @@ function synchronize(map) {
     center: {
       default: center,
       serialize: function(coord, state) {
+        var precision;
+        if (state && 'zoom' in state) {
+          precision = Math.max(0, Math.ceil(Math.log(state.zoom) / Math.LN2));
+        } else {
+          precision = 3;
+        }
         coord = proj.transform(coord, projection, 'EPSG:4326');
-        return toPrecision(coord[0], 3) + ',' + toPrecision(coord[1], 3);
+        return (
+          toPrecision(coord[0], precision) +
+          ',' +
+          toPrecision(coord[1], precision)
+        );
       },
       deserialize: function(str) {
         var parts = str.split(',');
         if (parts.length !== 2) {
-          throw new Error('Expected x,y, got ' + str);
+          throw new Error('Expected lon,lat but got ' + str);
         }
         var coord = [parseFloat(parts[0]), parseFloat(parts[1])];
         return proj.transform(coord, 'EPSG:4326', projection);
