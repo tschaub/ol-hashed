@@ -12,7 +12,7 @@ examples.forEach(example => {
   plugins.push(
     new HtmlPlugin({
       chunks: [example],
-      template: './map.html',
+      template: './example.html',
       filename: `${example}.html`
     })
   );
