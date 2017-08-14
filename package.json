@@ -1,6 +1,6 @@
 {
   "name": "ol-hashed",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Maintain your map view's state in the URL hash",
   "main": "index.js",
   "scripts": {
