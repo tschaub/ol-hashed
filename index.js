@@ -6,20 +6,6 @@ function toPrecision(value, precision) {
   return (Math.round(value * factor) / factor).toString();
 }
 
-function same(state, view) {
-  if (state.rotation !== view.getRotation()) {
-    return false;
-  }
-  if (state.zoom !== view.getZoom()) {
-    return false;
-  }
-  const center = view.getCenter();
-  if (center[0] !== state.center[0] || center[1] !== state.center[1]) {
-    return false;
-  }
-  return true;
-}
-
 function synchronize(map, options) {
   options = options || {};
   var animate;
@@ -92,10 +78,7 @@ function synchronize(map, options) {
 
   function hashHandler(state) {
     if (animate) {
-      // TODO: fix view.animate() so animations with no work complete immediately
-      if (!same(state, view)) {
-        view.animate(Object.assign({}, state, animate));
-      }
+      view.animate(Object.assign({}, state, animate));
       return;
     }
     if ('center' in state) {
