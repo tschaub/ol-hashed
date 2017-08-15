@@ -1,1 +1,1 @@
-module.exports = ['defaults', 'unanimated', 'slow'];
+module.exports = ['defaults', 'unanimated', 'slow', 'viewless'];

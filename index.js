@@ -77,7 +77,7 @@ function synchronize(map, options) {
   };
 
   function hashHandler(state) {
-    if (animate) {
+    if (view.isDef() && animate) {
       view.animate(Object.assign({}, state, animate));
       return;
     }
