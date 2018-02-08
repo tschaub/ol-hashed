@@ -1,5 +1,5 @@
 import hashed from 'hashed';
-import proj from 'ol/proj';
+import {transform} from 'ol/proj';
 
 function toPrecision(value, precision) {
   var factor = Math.pow(10, precision);
@@ -44,7 +44,7 @@ function synchronize(map, options) {
         } else {
           precision = 3;
         }
-        coord = proj.transform(coord, projection, 'EPSG:4326');
+        coord = transform(coord, projection, 'EPSG:4326');
         return (
           toPrecision(coord[0], precision) +
           ',' +
@@ -57,7 +57,7 @@ function synchronize(map, options) {
           throw new Error('Expected lon,lat but got ' + str);
         }
         var coord = [parseFloat(parts[0]), parseFloat(parts[1])];
-        return proj.transform(coord, 'EPSG:4326', projection);
+        return transform(coord, 'EPSG:4326', projection);
       }
     },
     zoom: {
