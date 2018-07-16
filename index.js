@@ -1,30 +1,30 @@
 import hashed from 'hashed';
-import proj from 'ol/proj';
+import {transform} from 'ol/proj';
 
 function toPrecision(value, precision) {
-  var factor = Math.pow(10, precision);
+  const factor = Math.pow(10, precision);
   return (Math.round(value * factor) / factor).toString();
 }
 
 function synchronize(map, options) {
   options = options || {};
-  var animate;
+  let animate;
   if ('animate' in options) {
     animate = options.animate;
   } else {
     animate = {duration: 250};
   }
 
-  var view = map.getView();
-  var projection = view.getProjection().getCode();
+  const view = map.getView();
+  const projection = view.getProjection().getCode();
 
-  var zoom, center, rotation;
+  let zoom, center, rotation;
   if (view.isDef()) {
     zoom = view.getZoom();
     center = view.getCenter();
     rotation = view.getRotation();
   } else {
-    var viewport = map.getViewport();
+    const viewport = map.getViewport();
     if (viewport) {
       zoom = Math.LOG2E * Math.log(viewport.clientWidth / 256);
     } else {
@@ -34,17 +34,17 @@ function synchronize(map, options) {
     rotation = 0;
   }
 
-  var config = {
+  const config = {
     center: {
       default: center,
       serialize: function(coord, state) {
-        var precision;
+        let precision;
         if (state && 'zoom' in state) {
           precision = Math.max(0, Math.ceil(Math.log(state.zoom) / Math.LN2));
         } else {
           precision = 3;
         }
-        coord = proj.transform(coord, projection, 'EPSG:4326');
+        coord = transform(coord, projection, 'EPSG:4326');
         return (
           toPrecision(coord[0], precision) +
           ',' +
@@ -52,12 +52,12 @@ function synchronize(map, options) {
         );
       },
       deserialize: function(str) {
-        var parts = str.split(',');
+        const parts = str.split(',');
         if (parts.length !== 2) {
           throw new Error('Expected lon,lat but got ' + str);
         }
-        var coord = [parseFloat(parts[0]), parseFloat(parts[1])];
-        return proj.transform(coord, 'EPSG:4326', projection);
+        const coord = [parseFloat(parts[0]), parseFloat(parts[1])];
+        return transform(coord, 'EPSG:4326', projection);
       }
     },
     zoom: {
@@ -92,7 +92,7 @@ function synchronize(map, options) {
     }
   }
 
-  var update = hashed.register(config, hashHandler);
+  const update = hashed.register(config, hashHandler);
 
   function onMoveEnd() {
     update({
