@@ -1,6 +1,7 @@
-import Map from 'ol/map';
-import TileLayer from 'ol/layer/tile';
-import XYZSource from 'ol/source/xyz';
+import 'ol/ol.css';
+import Map from 'ol/Map.js';
+import TileLayer from 'ol/layer/Tile.js';
+import XYZSource from 'ol/source/XYZ.js';
 import sync from '..';
 
 const map = new Map({

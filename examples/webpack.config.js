@@ -35,9 +35,17 @@ module.exports = {
   entry: entry,
   devtool: 'source-map',
   devServer: {
-    contentBase: build
+    static: build
   },
   plugins: plugins,
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  },
   output: {
     filename: '[name].js',
     path: build

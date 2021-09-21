@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "npm run lint",
-    "start": "webpack-dev-server --config examples/webpack.config.js --mode development"
+    "start": "webpack-dev-server --config examples/webpack.config.js --mode development",
+    "build": "webpack --config examples/webpack.config.js --mode production"
   },
   "keywords": [
     "openlayers",
@@ -16,17 +17,16 @@
   "dependencies": {
     "hashed": "*"
   },
-  "peerDependencies": {
-    "ol": ">=5"
-  },
   "devDependencies": {
-    "eslint": "^5.1.0",
-    "eslint-config-tschaub": "^11.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "ol": "^5.0.3",
-    "webpack": "^4.1.16",
-    "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4"
+    "css-loader": "^6.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-tschaub": "^13.1.0",
+    "html-webpack-plugin": "^5.3.2",
+    "ol": "^6.7.0",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.2.1"
   },
   "eslintConfig": {
     "extends": "tschaub",
