@@ -13,10 +13,10 @@ The `ol-hashed` module is meant to be used together with (and depends on) the [`
 The default export from the `ol-hashed` module is a function that you call with a map.
 
 ```js
-import Map from 'ol/map';
-import View from 'ol/view';
-import TileLayer from 'ol/layer/tile';
-import XYZSource from 'ol/source/xyz';
+import Map from 'ol/Map.js';
+import View from 'ol/View.js';
+import TileLayer from 'ol/layer/Tile.js';
+import XYZSource from 'ol/source/XYZ.js';
 import sync from 'ol-hashed';
 
 // create a map as you would normally
